@@ -19,7 +19,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Pie}/{action=List}/{id?}")
     .WithStaticAssets();
 
 

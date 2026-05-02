@@ -1,0 +1,36 @@
+﻿@model PieShop.Models.Pie
+
+<h1>Pie Detail</h1>
+
+<a href="/Pie/List">← Back to list</a>
+
+<h2>@Model.Name</h2>
+
+@if (!string.IsNullOrWhiteSpace(Model.ShortDescription))
+{
+    <p>@Model.ShortDescription</p>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.LongDescription))
+{
+    <p>@Model.LongDescription</p>
+}
+
+<p>Price: @Model.Price.ToString("c")</p>
+
+@if (Model.IsPieOfTheWeek)
+{
+    <p><strong>Pie of the Week!</strong></p>
+}
+
+@if (Model.InStock)
+{
+    <p>In stock</p>
+}
+else
+{
+    <p>Out of stock</p>
+}
+
+<img src="@Model.ImageUrl" alt="@Model.Name" width="300" />
+
