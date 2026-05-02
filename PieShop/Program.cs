@@ -1,20 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using PieShop.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("PieShopDb"));
+
 var app = builder.Build();
 
-
-
-app.MapStaticAssets();
-
-
+DataSeeder.Initialize(app.Services);
 
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
 
+
+app.MapStaticAssets();
 
 
 app.MapControllerRoute(

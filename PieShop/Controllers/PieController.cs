@@ -1,28 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PieShop.Models;
 
 namespace PieShop.Controllers
 {
     public class PieController : Controller
     {
-        public IActionResult List()
-        {
-            ViewBag.CurrentCategory = "All pies";
+        private readonly AppDbContext _context;
 
-            var pies = StaticPieData.GetAll();
+        public PieController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IActionResult> List()
+        {
+            var pies = await _context.Pies
+                .AsNoTracking()
+                .OrderBy(p => p.PieId)
+                .ToListAsync();
+
             return View(pies);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var pie = StaticPieData.GetById(id);
+            var pie = await _context.Pies
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.PieId == id);
 
-            if (pie is null)
-            {
-                return NotFound();
-            }
-
-            return View(pie);
+            return pie is null ? NotFound() : View(pie);
         }
 
     }
