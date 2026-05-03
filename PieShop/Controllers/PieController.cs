@@ -1,36 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using PieShop.Models;
+using PieShop.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PieShop.Models;
 
-namespace PieShop.Controllers
+namespace PieShop.Controllers;
+
+public class PieController : Controller
 {
-    public class PieController : Controller
+    private readonly AppDbContext _context;
+
+    public PieController(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public PieController(AppDbContext context)
+    public async Task<IActionResult> List()
+    {
+        var pies = await _context.Pies
+            .AsNoTracking()
+            .OrderBy(p => p.PieId)
+            .ToListAsync();
+
+        string category = "All pies";
+        var viewModel = new PieListViewModel
         {
-            _context = context;
-        }
+            Pies = pies,
+            CurrentCategory = category
+        };
 
-        public async Task<IActionResult> List()
-        {
-            var pies = await _context.Pies
-                .AsNoTracking()
-                .OrderBy(p => p.PieId)
-                .ToListAsync();
+        return View(viewModel);
+    }
 
-            return View(pies);
-        }
+    public async Task<IActionResult> Details(int id)
+    {
+        var pie = await _context.Pies
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.PieId == id);
 
-        public async Task<IActionResult> Details(int id)
-        {
-            var pie = await _context.Pies
-                .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.PieId == id);
-
-            return pie is null ? NotFound() : View(pie);
-        }
-
+        return pie is null ? NotFound() : View(pie);
     }
 }
