@@ -14,6 +14,8 @@ public class PieController : Controller
         _pieRepository = pieRepository;
     }
 
+
+    //[HttpGet("")]
     public async Task<IActionResult> List(string? category)
     {
         ViewBag.Title = "Pie Overview";
@@ -40,6 +42,7 @@ public class PieController : Controller
         return View(viewModel);
     }
 
+    //[HttpGet("{id:int:min(1)}")]
 
     public async Task<IActionResult> Details(int id)
     {
