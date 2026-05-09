@@ -7,7 +7,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPieRepository, PieRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IShoppingCart>(sp => ShoppingCart.GetCart(sp));
 builder.Services.AddResponseCompression();
+builder.Services.AddHttpContextAccessor(); // provide access to the http post data
+builder.Services.AddSession();
 
 // builder.Services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("PieShopDb"));
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("PieShopDb")));
@@ -27,6 +30,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.UseResponseCompression();
 app.MapStaticAssets();
