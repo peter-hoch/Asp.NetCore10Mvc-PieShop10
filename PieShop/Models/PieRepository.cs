@@ -37,5 +37,14 @@ namespace PieShop.Models
                 .OrderBy(p => p.PieId)
                 .ToListAsync();
         }
+
+        public Task<List<Pie>> GetPiesOfTheWeekAsync()
+        {
+            return _appDbContext.Pies.AsNoTracking()
+                .Include(p => p.Category)
+                .Where(p => p.IsPieOfTheWeek)
+                .OrderBy(p => p.PieId)
+                .ToListAsync();
+        }
     }
 }
