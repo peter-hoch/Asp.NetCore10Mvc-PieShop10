@@ -364,3 +364,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /PieShop/pieshop.db
+/PieShop/pieshop.db-shm
+/PieShop/pieshop.db-wal
