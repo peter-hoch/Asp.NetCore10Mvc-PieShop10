@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPieRepository, PieRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IShoppingCart>(sp => ShoppingCart.GetCart(sp));
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddResponseCompression();
 builder.Services.AddHttpContextAccessor(); // provide access to the http post data
 builder.Services.AddSession();
