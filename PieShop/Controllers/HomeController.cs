@@ -2,7 +2,7 @@
 using PieShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BethanysPieShop.Controllers
+namespace PieShop.Controllers
 {
     public class HomeController : Controller
     {
