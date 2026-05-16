@@ -50,6 +50,10 @@ app.MapControllerRoute(
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+//app.MapAreaControllerRoute(
+//    name: "Identity", areaName:"Identity", pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
 
