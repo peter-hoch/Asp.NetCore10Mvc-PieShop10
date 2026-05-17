@@ -15,7 +15,7 @@ namespace PieShop.Controllers
 
         public async Task<ViewResult> Index()
         {
-            var piesOfTheWeek = await _pieRepository.GetPiesOfTheWeekAsync();
+            var piesOfTheWeek = (await _pieRepository.GetAllAsync()).Where(p => p.IsPieOfTheWeek);
             var homeViewModel = new HomeViewModel(piesOfTheWeek);
             return View(homeViewModel);
         }
